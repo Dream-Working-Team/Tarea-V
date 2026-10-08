@@ -115,7 +115,7 @@ Tarea-V/
 ├── LICENSE                         # Licencia MIT académica
 ├── README.md                       # Documentación exhaustiva
 ├── requirements.txt                # Dependencias (customtkinter)
-├── main.py                         # Entrypoint (soporta GUI y CLI)
+├── main.py                         # Clase WorkforceApplication (soporta GUI y CLI)
 ├── src/
 │   ├── models/
 │   │   ├── problem.py              # Clases ProblemData y CostModel
@@ -125,7 +125,16 @@ Tarea-V/
 │   ├── exporters/
 │   │   └── txt_exporter.py         # Generador de reportes paso a paso (.txt)
 │   └── ui/
-│       └── app_window.py           # GUI moderna construida con CustomTkinter
+│       ├── app_window.py           # Orquestador principal de la GUI (WorkforceAppGUI)
+│       ├── components/             # Componentes visuales desacoplados
+│       │   ├── metric_card.py      # Tarjeta individual de KPI (MetricCard)
+│       │   ├── kpi_bar.py          # Barra superior de indicadores (KPIBarFrame)
+│       │   └── sidebar.py          # Panel lateral de parámetros y controles (SidebarFrame)
+│       └── views/                  # Vistas modulares por pestaña
+│           ├── schedule_view.py    # Cronograma y plan óptimo semanal (ScheduleView)
+│           ├── stages_view.py      # Matrices paso a paso de Bellman (StagesView)
+│           ├── txt_preview_view.py # Visor monoespaciado de reporte TXT (TxtPreviewView)
+│           └── theory_view.py      # Documentación teórica integrada (TheoryView)
 ├── salidas/
 │   ├── salida_fuerza_trabajo_actual.txt     # Reporte fijo de la última corrida
 │   └── salida_fuerza_trabajo_*.txt          # Reportes históricos con marca de tiempo

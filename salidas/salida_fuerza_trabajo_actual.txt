@@ -4,7 +4,7 @@
                     CÁTEDRA: MÉTODOS CUANTITATIVOS
        PROGRAMACIÓN DINÁMICA: MODELO DE TAMAÑO DE LA FUERZA DE TRABAJO
 ================================================================================
-Fecha de generación: 2026-10-08 17:04:17
+Fecha de generación: 2026-10-08 17:15:53
 Estado del Modelo: SOLUCIÓN ÓPTIMA DETERMINADA (BELLMAN)
 
 --------------------------------------------------------------------------------

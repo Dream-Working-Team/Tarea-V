@@ -5,7 +5,9 @@ y la Reconstrucción Hacia Adelante (Forward Policy Trajectory).
 """
 
 from typing import Dict, List, Tuple
+# pyrefly: ignore [missing-import]
 from ..models.problem import ProblemData, CostModel
+# pyrefly: ignore [missing-import]
 from ..models.solution import (
     StageEvaluation,
     StageResult,

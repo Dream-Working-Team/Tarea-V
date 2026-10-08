@@ -7,6 +7,7 @@ import tkinter as tk
 from typing import Callable, Optional
 import customtkinter as ctk
 
+# pyrefly: ignore [missing-import]
 from ...models.problem import ProblemData, CostModel
 
 

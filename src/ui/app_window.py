@@ -10,10 +10,13 @@ from tkinter import messagebox
 from typing import Optional
 
 import customtkinter as ctk
-
+# pyrefly: ignore [missing-import]
 from ..models.problem import ProblemData
+# pyrefly: ignore [missing-import]
 from ..models.solution import WorkforceSolution
+# pyrefly: ignore [missing-import]
 from ..solver.dp_solver import WorkforceDPSolver
+# pyrefly: ignore [missing-import]
 from ..exporters.txt_exporter import TxtReportExporter
 
 from .components.sidebar import SidebarFrame

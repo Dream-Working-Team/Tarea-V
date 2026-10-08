@@ -3,8 +3,11 @@ Componente que agrupa la barra superior de indicadores clave (KPI).
 """
 
 import customtkinter as ctk
+# pyrefly: ignore [missing-import]
 from .metric_card import MetricCard
+# pyrefly: ignore [missing-import]
 from ...models.solution import WorkforceSolution
+# pyrefly: ignore [missing-import]
 from ...models.problem import ProblemData
 
 

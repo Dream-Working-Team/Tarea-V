@@ -1,0 +1,124 @@
+================================================================================
+           UNIVERSIDAD JOSÉ ANTONIO PÁEZ - FACULTAD DE INGENIERÍA
+                    ESCUELA DE INGENIERÍA EN COMPUTACIÓN
+                    CÁTEDRA: MÉTODOS CUANTITATIVOS
+       PROGRAMACIÓN DINÁMICA: MODELO DE TAMAÑO DE LA FUERZA DE TRABAJO
+================================================================================
+Fecha de generación: 2026-10-08 17:04:17
+Estado del Modelo: SOLUCIÓN ÓPTIMA DETERMINADA (BELLMAN)
+
+--------------------------------------------------------------------------------
+1. DATOS Y PARÁMETROS DEL PROBLEMA
+--------------------------------------------------------------------------------
+• Horizonte de planificación: 5 semanas
+• Demandas mínimas semanales: b_1 = 5, b_2 = 7, b_3 = 8, b_4 = 4, b_5 = 6
+• Fuerza de trabajo inicial (x_0): 0 trabajadores
+• Costo de mano de obra excedente (C1): $300.00 / trabajador / semana
+• Costo fijo de contratación (C2 fijo): $400.00
+• Costo variable de contratación (C2 var): $200.00 / trabajador
+• Costo por despido: $0.00 (sin costo asociado)
+
+--------------------------------------------------------------------------------
+2. FORMULACIÓN MATEMÁTICA Y MODELO DE BELLMAN
+--------------------------------------------------------------------------------
+• Etapas (i): Semanas i = 1, 2, ..., n evaluadas en inducción hacia atrás (n -> 1).
+• Estado (x_{i-1}): Fuerza de trabajo disponible proveniente de la semana anterior.
+• Decisión (x_i): Fuerza de trabajo asignada para la semana i.
+• Restricciones de decisión: b_i <= x_i <= max_{k >= i} b_k.
+• Funciones de Costo (en cientos de dólares):
+    C1(x_i - b_i) = 3(x_i - b_i)                 si x_i > b_i
+    C2(x_i - x_{i-1}) = 4 + 2(x_i - x_{i-1})     si x_i > x_{i-1}
+• Ecuación Recursiva de Bellman:
+    f_i(x_{i-1}) = min { C1(x_i - b_i) + C2(x_i - x_{i-1}) + f_{i+1}(x_i) }
+    con condición de frontera: f_{n+1}(x_n) = 0
+
+--------------------------------------------------------------------------------
+3. RESOLUCIÓN PASO A PASO (INDUCCIÓN HACIA ATRÁS: ETAPAS n -> 1)
+--------------------------------------------------------------------------------
+
+==================== [ ETAPA / SEMANA 5 ] ====================
+• Demanda mínima requerida (b_5): 6 trabajadores
+• Decisiones factibles (x_5): [6]
+• Estados de entrada factibles (x_4): [4, 5, 6]
+
+  x_4    |            x_5=6             |     f_5      |    f_5 ($)     |  x_5^*  
+----------------------------------------------------------------------------------
+   4     |     0 + [4 + 2(2)] = 8*      |      8       |      $800      |    6    
+   5     |     0 + [4 + 2(1)] = 6*      |      6       |      $600      |    6    
+   6     |          0 + 0 = 0*          |      0       |       $0       |    6    
+----------------------------------------------------------------------------------
+Nota: '*' indica la decisión óptima que minimiza la función recursiva.
+
+==================== [ ETAPA / SEMANA 4 ] ====================
+• Demanda mínima requerida (b_4): 4 trabajadores
+• Decisiones factibles (x_4): [4, 5, 6]
+• Estados de entrada factibles (x_3): [8]
+
+  x_3    |            x_4=4                         x_4=5                         x_4=6             |     f_4      |    f_4 ($)     |  x_4^*  
+----------------------------------------------------------------------------------------------------------------------------------------------
+   8     |        0 + 0 + 8 = 8               3(1) + 0 + 6 = 9              3(2) + 0 + 0 = 6*       |      6       |      $600      |    6    
+----------------------------------------------------------------------------------------------------------------------------------------------
+Nota: '*' indica la decisión óptima que minimiza la función recursiva.
+
+==================== [ ETAPA / SEMANA 3 ] ====================
+• Demanda mínima requerida (b_3): 8 trabajadores
+• Decisiones factibles (x_3): [8]
+• Estados de entrada factibles (x_2): [7, 8]
+
+  x_2    |            x_3=8             |     f_3      |    f_3 ($)     |  x_3^*  
+----------------------------------------------------------------------------------
+   7     |   0 + [4 + 2(1)] + 6 = 12*   |      12      |     $1,200     |    8    
+   8     |        0 + 0 + 6 = 6*        |      6       |      $600      |    8    
+----------------------------------------------------------------------------------
+Nota: '*' indica la decisión óptima que minimiza la función recursiva.
+
+==================== [ ETAPA / SEMANA 2 ] ====================
+• Demanda mínima requerida (b_2): 7 trabajadores
+• Decisiones factibles (x_2): [7, 8]
+• Estados de entrada factibles (x_1): [5, 6, 7, 8]
+
+  x_1    |            x_2=7                         x_2=8             |     f_2      |    f_2 ($)     |  x_2^*  
+----------------------------------------------------------------------------------------------------------------
+   5     |  0 + [4 + 2(2)] + 12 = 20     3(1) + [4 + 2(3)] + 6 = 19*  |      19      |     $1,900     |    8    
+   6     |  0 + [4 + 2(1)] + 12 = 18     3(1) + [4 + 2(2)] + 6 = 17*  |      17      |     $1,700     |    8    
+   7     |       0 + 0 + 12 = 12*        3(1) + [4 + 2(1)] + 6 = 15   |      12      |     $1,200     |    7    
+   8     |       0 + 0 + 12 = 12              3(1) + 0 + 6 = 9*       |      9       |      $900      |    8    
+----------------------------------------------------------------------------------------------------------------
+Nota: '*' indica la decisión óptima que minimiza la función recursiva.
+
+==================== [ ETAPA / SEMANA 1 ] ====================
+• Demanda mínima requerida (b_1): 5 trabajadores
+• Decisiones factibles (x_1): [5, 6, 7, 8]
+• Estados de entrada factibles (x_0): [0]
+
+  x_0    |            x_1=5                         x_1=6                         x_1=7                         x_1=8             |     f_1      |    f_1 ($)     |  x_1^*  
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   0     |  0 + [4 + 2(5)] + 19 = 33*    3(1) + [4 + 2(6)] + 17 = 36   3(2) + [4 + 2(7)] + 12 = 36   3(3) + [4 + 2(8)] + 9 = 38   |      33      |     $3,300     |    5    
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Nota: '*' indica la decisión óptima que minimiza la función recursiva.
+
+--------------------------------------------------------------------------------
+4. TRAYECTORIA Y POLÍTICA ÓPTIMA DE OPERACIÓN (1 -> n)
+--------------------------------------------------------------------------------
+Semana   | b_i    | x_i^*  | Decisión Operativa               | Excedente  | Contratación  | Costo Total ($)
+----------------------------------------------------------------------------------------------------
+1        | 5      | 5      | Contratar 5 trabajador(es)       | $0         | $1,400        | $1,400         
+2        | 7      | 8      | Contratar 3 trabajador(es)       | $300       | $1,000        | $1,300         
+3        | 8      | 8      | Ningún cambio (mantener personal) | $0         | $0            | $0             
+4        | 4      | 6      | Despedir 2 trabajador(es)        | $600       | $0            | $600           
+5        | 6      | 6      | Ningún cambio (mantener personal) | $0         | $0            | $0             
+----------------------------------------------------------------------------------------------------
+COSTO TOTAL MÍNIMO DEL PROYECTO:                                       $3,300.00
+COSTO EN CIENTOS DE DÓLARES:                                           33.00 (33 unidades)
+
+--------------------------------------------------------------------------------
+5. RESUMEN EJECUTIVO Y CONCLUSIÓN OPERATIVA
+--------------------------------------------------------------------------------
+• En la Semana 1, se contrata exactamente el requerimiento de 5 trabajadores (Costo: $1,400).
+• En la Semana 2, resulta más rentable contratar 3 trabajadores (llegando a 8) en lugar de 2,
+  ya que mantener 1 trabajador extra en la Semana 2 ($300) evita una nueva contratación fija ($400)
+  en la Semana 3 donde la demanda es 8 trabajadores.
+• En la Semana 4, ante la caída de demanda a 4 trabajadores, es óptimo despedir solo 2 y conservar 6,
+  evitando la penalización de contratación para la Semana 5 cuya demanda es 6.
+• Esta política óptima garantiza el costo mínimo global de $3,300.00.
+================================================================================
